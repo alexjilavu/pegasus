@@ -26,6 +26,7 @@ const defaultByChain: Record<ChainsIds, BlockchainSettings> = {
       waitForBlockTime: 1000,
       minGasPrice: 25000000000,
       maxGasPrice: 250000000000,
+      gasMultiplier: 1,
       mintBalance: {
         warningLimit: '0.5',
         errorLimit: '0.008',
@@ -37,6 +38,7 @@ const defaultByChain: Record<ChainsIds, BlockchainSettings> = {
       waitForBlockTime: 1000,
       minGasPrice: 1000000000,
       maxGasPrice: 500000000000,
+      gasMultiplier: 1,
       mintBalance: {
         warningLimit: '0.5',
         errorLimit: '0.02',
@@ -48,6 +50,7 @@ const defaultByChain: Record<ChainsIds, BlockchainSettings> = {
       waitForBlockTime: 1000,
       minGasPrice: 100_000_000,
       maxGasPrice: 50_000_000_000,
+      gasMultiplier: 1,
       mintBalance: {
         warningLimit: '0.05',
         errorLimit: '0.001',
@@ -59,6 +62,7 @@ const defaultByChain: Record<ChainsIds, BlockchainSettings> = {
       waitForBlockTime: 1000,
       minGasPrice: 2000000000,
       maxGasPrice: 500000000000,
+      gasMultiplier: 1,
       mintBalance: {
         warningLimit: '0.6',
         errorLimit: '0.06',
@@ -72,6 +76,7 @@ const defaultByChain: Record<ChainsIds, BlockchainSettings> = {
       waitForBlockTime: 1000,
       minGasPrice: 1000000000,
       maxGasPrice: 100000000000,
+      gasMultiplier: 2,
       mintBalance: {
         warningLimit: '0.01',
         errorLimit: '0.0001',
@@ -295,6 +300,9 @@ function resolveMultichainSettings(): Partial<Record<ChainsIds, BlockchainSettin
         waitForBlockTime:
           parseInt(process.env[`${chain}_WAIT_FOR_BLOCK_TIME`] as string, 10) ||
           defaultByChain[ChainsIds[chain]].transactions.waitForBlockTime,
+        gasMultiplier:
+          parseFloat(process.env[`${chain}_GAS_MULTIPLIER`] as string) ||
+          defaultByChain[ChainsIds[chain]].transactions.gasMultiplier,
         minGasPrice:
           parseInt(process.env[`${chain}_MIN_GAS_PRICE`] as string, 10) ||
           defaultByChain[ChainsIds[chain]].transactions.minGasPrice,
